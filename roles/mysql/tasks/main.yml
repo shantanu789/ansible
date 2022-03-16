@@ -1,0 +1,71 @@
+---
+- name: Setup MySQL Repo
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+    remote_src: yes
+
+- name: Removing mariadb
+  ansible.builtin.yum:
+    name: mariadb-libs
+    state: absent
+
+- name: Install MySQL
+  ansible.builtin.yum:
+    name: 
+      - mysql-community-server
+      - MySQL-python  ## to avoid runtime error , it is additional dependency package
+    state: present
+
+- name: Start mysql service
+  ansible.builtin.service:
+    name: mysqld
+    state: restarted
+    enabled: yes
+
+- name: Validate default password changed
+  ansible.builtin.shell: echo 'show databases' | mysql -u root --password="RoboShop@1"
+  register: out
+  ignore_errors: yes
+
+# - name: Print output of out register
+#   ansible.builtin.debug:
+#     msg: "{{ out }}"
+
+- name: Default password 
+  ansible.builtin.shell: grep 'temporary password' /var/log/mysqld.log | awk '{printf $NF}'
+  register: DEFAULT_PASSWORD
+  when: out.rc != 0
+
+- name: Copy reset_default_pass file to /tmp
+  ansible.builtin.copy:
+    src: reset_default_pass.sql
+    dest: /tmp/reset.sql
+  when: out.rc != 0
+
+- name: Reset Mysql default password
+  ansible.builtin.shell: mysql --connect-expired-password -u root --password="{{ DEFAULT_PASSWORD.stdout }}" < /tmp/reset.sql
+  when: out.rc != 0
+
+- name: Check validate_password plugin 
+  ansible.builtin.shell: echo 'show plugins;' | mysql -u root --password="RoboShop@1" 2>/dev/null | grep -i 'validate_password'
+  register: validate_out
+  ignore_errors: yes
+
+- name: Uninstall validate_password plugin
+  ansible.builtin.shell: echo "uninstall plugin validate_password;" > /tmp/uninstall_validate.password ; mysql -u root --password="RoboShop@1" </tmp/uninstall_validate.password
+  when: validate_out.rc == 0
+
+- name: Download MySQL schema
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mysql/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Load MySQL schema
+  community.mysql.mysql_db:
+    state: import
+    name: all
+    target: /tmp/mysql-main/shipping.sql
+    login_user: root
+    login_password: RoboShop@1
