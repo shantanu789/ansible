@@ -1,0 +1,29 @@
+---
+- name: Install Maven and Java
+  ansible.builtin.yum:
+    name: maven
+    state: present
+
+- name: Download task
+  include_tasks:
+    name: download.yml
+
+- name: Making Shipping package and Rename
+  shell: mvn clean package; mv target/shipping-1.0.jar shipping.jar
+  args: 
+    chdir: /home/roboshop/{{ COMPONENT }}
+
+- name: SystemD tasks
+  include_tasks:
+    name: systemd.yml
+
+
+# Update Servers IP address in /home/roboshop/shipping/systemd.service
+
+# Copy the service file and start the service.
+
+# # mv /home/roboshop/shipping/systemd.service /etc/systemd/system/shipping.service
+# # systemctl daemon-reload
+# # systemctl start shipping 
+# # systemctl enable shipping
+

@@ -1,0 +1,24 @@
+---
+- name: Add Roboshop app user
+  ansible.builtin.user:
+    name: roboshop
+  register: ROBOSHOP_USER
+
+- name: Download {{ COMPONENT }} - archive
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/{{ COMPONENT }}/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Removing old/default content of {{ COMPONENT }}
+  ansible.builtin.file:
+    path: /home/roboshop/{{ COMPONENT }}
+    state: absent
+
+- name: Copy Extracted content of {{ COMPONENT }} archive 
+  ansible.builtin.copy:
+    src: /tmp/{{ COMPONENT }}-main/
+    dest: /home/roboshop/{{ COMPONENT }}/
+    remote_src: yes
+    user: roboshop
+    group: roboshop

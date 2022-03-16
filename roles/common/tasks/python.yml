@@ -1,0 +1,41 @@
+---
+- name: Install Python3
+  ansible.builtin.yum: 
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: present
+
+- name: Include tasks to create user and extract archive
+  include_tasks:
+    name: download.yml
+
+
+- name: Install specified python requirements
+  pip:
+    requirements: /home/roboshop/{{ COMPONENT }}/requirements.txt
+    executable: pip3
+
+# Getting roboshop user details from tasks download-from-github.yml 
+# - name: Print RoboShop user details
+#   debug:
+#     msg: "{{ ROBOSHOP_USER }}"
+
+- name: Replace uid with roboshop user ID
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{ COMPONENT }}/{{ COMPONENT }}.ini
+    regexp: '^uid'
+    line: uid = {{ ROBOSHOP_USER.uid }}
+
+- name: Replace uid with roboshop group ID
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{ COMPONENT }}/{{ COMPONENT }}.ini
+    regexp: '^gid'
+    line: gid = {{ ROBOSHOP_USER.group }}
+
+- name: SystemD tasks
+  include_tasks:
+    name: systemd.yml
+
+
