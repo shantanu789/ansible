@@ -5,8 +5,8 @@
 #   exit 1
 # fi
 
-LID="lt-0cca98383ef587a44"
-LVER=6
+LID="lt-048c498b2ab4c35c3"
+LVER=5
 InstanceName="$1"
 
 declare -A INSTANCE_STATE_CODE='([16]="running" [32]="shutting-down" [48]="terminated" [64]="stopping" [80]="stopped")'
