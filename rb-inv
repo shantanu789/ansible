@@ -18,3 +18,5 @@ shipping.roboshop.internal
 rabbitmq.roboshop.internal
 [PAYMENT]
 payment.roboshop.internal
+[PROMETHEUS]
+prometheus.roboshop.internal
