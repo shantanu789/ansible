@@ -1,0 +1,7 @@
+---
+- name: Install Prometheus package
+  hosts: PROMETHEUS
+  become: yes
+  roles:
+    - prometheus
+  

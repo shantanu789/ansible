@@ -1,0 +1,10 @@
+---
+- name: RoboShop Setup
+  hosts: localhost
+  become: yes
+  roles:
+    - "{{ COMPONENT }}"
+
+####This method is ansible-pull way, to run this we have to run "ansible-pull"
+### ansible-pull -U https://github.com/shantanu789/ansible.git roboshop-pull.yml -e COMPONENT=frontend
+### ansible-pull -U https://github.com/shantanu789/ansible.git roboshop-pull.yml -e COMPONENT={mongodb, catalogue, ..., payment} --> just for understanding never try this

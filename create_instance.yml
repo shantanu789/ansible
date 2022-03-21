@@ -1,0 +1,28 @@
+---
+- name: Create AWS EC2 instance
+  amazon.aws.ec2_instance:
+    name: "Desired_instance_name"
+    region: us-east-1
+    image_id: "ami-0bb6af715826253bf"
+##  key_name: "prod-ssh-key"
+##  vpc_subnet_id: subnet-5ca1ab1e 
+## The subnet ID in which to launch the instance (VPC) If none is provided, amazon.aws.ec2_instance will chose the default zone of the default VPC.
+##  vpc_id: vpc-8f4a38f2
+    instance_type: t2.micro
+    security_group: default
+    network:
+      assign_public_ip: true
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 16
+          delete_on_termination: true
+    cpu_options:
+        core_count: 1
+        threads_per_core: 1
+    state: running ## present / terminated / started / stopped / restarted / rebooted / absent
+    launch_template:
+      id: "lt-0cca98383ef587a44"
+      name: "workstation"
+##    version: "6"   ## If unspecified, the template default is chosen.
+    instance_initiated_shutdown_behavior: stop

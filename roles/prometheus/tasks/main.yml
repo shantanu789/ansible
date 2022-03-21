@@ -1,0 +1,23 @@
+---
+- name: Removing old/default content of {{ COMPONENT }}
+  ansible.builtin.file:
+    path: /opt/{{ COMPONENT }}
+    state: absent
+
+- name: Download Prometheus file
+  ansible.builtin.unarchive:
+    src: "https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz"
+    dest: /opt/prometheus/
+    remote_src: yes
+
+- name: Copy Service file
+  ansible.builtin.copy:
+    src: prometheus.service
+    dest: /etc/systemd/system/prometheus.service
+    remote_src: yes
+
+- name: Prometheus service enabled and started
+  ansible.builtin.service:
+    name: prometheus
+    state: restarted
+    enabled: yes

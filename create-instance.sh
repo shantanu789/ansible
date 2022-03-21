@@ -5,8 +5,8 @@
 #   exit 1
 # fi
 
-LID="ami-0b90346fbb8e13c09"
-LVER=1
+LID="lt-048c498b2ab4c35c3"
+LVER=6
 InstanceName="$1"
 
 declare -A INSTANCE_STATE_CODE='([16]="running" [32]="shutting-down" [48]="terminated" [64]="stopping" [80]="stopped")'
@@ -35,6 +35,6 @@ IP=$(aws ec2 run-instances --launch-template "LaunchTemplateId=$LID,Version=$LVE
 
 sed -e "s/INSTANCE_NAME/$InstanceName/" -e "s/INSTANCE_IP/$IP/" record.json >/tmp/record.json
 
-aws route53 change-resource-record-sets --hosted-zone-id Z04674552UCKELJX08IB3 --change-batch file:///tmp/record.json | jq
+aws route53 change-resource-record-sets --hosted-zone-id Z10081892AGMCVBLNWRMQ --change-batch file:///tmp/record.json | jq
 
 # NOTE: This script is working fine without sudo previleges.
