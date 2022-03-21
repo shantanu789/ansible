@@ -18,10 +18,5 @@ shipping.roboshop.internal
 rabbitmq.roboshop.internal
 [PAYMENT]
 payment.roboshop.internal
-<<<<<<< HEAD
-[workstation]
-localhost
-=======
 [PROMETHEUS]
 prometheus.roboshop.internal
->>>>>>> refs/remotes/origin/master
