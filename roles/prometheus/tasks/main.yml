@@ -1,8 +1,13 @@
 ---
-- name: Removing old/default content of {{ COMPONENT }}
+- name: Create {{ COMPONENT }} directory
   ansible.builtin.file:
     path: /opt/{{ COMPONENT }}
-    state: absent
+    state: present
+
+# - name: Removing old/default content of {{ COMPONENT }}
+#   ansible.builtin.file:
+#     path: /opt/{{ COMPONENT }}/
+#     state: absent
 
 - name: Download Prometheus file
   ansible.builtin.unarchive:
