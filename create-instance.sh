@@ -31,7 +31,7 @@ fi
 
 echo -e "\e[32m-----------------Launching New Instance-----------------\e[0m\n"
 
-IP=$(aws ec2 run-instances --launch-template "LaunchTemplateId=$LID,Version=$LVER" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$InstanceName}]" "ResourceType=instance,Tags=[{Key=Name,Value=$InstanceName}]" | jq .Instances[].PrivateIpAddress | sed -e 's/"//g')
+IP=$(aws ec2 run-instances --launch-template "LaunchTemplateId=$LID,Version=$LVER" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$InstanceName}]" "ResourceType=instance,Tags=[{Key=Name,Value=$InstanceName}]" --user-data file://user-data-script.sh | jq .Instances[].PrivateIpAddress | sed -e 's/"//g')
 
 sed -e "s/INSTANCE_NAME/$InstanceName/" -e "s/INSTANCE_IP/$IP/" record.json >/tmp/record.json
 
