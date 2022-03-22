@@ -13,11 +13,11 @@
   ansible.builtin.shell: rm -rf /opt
   when: my_folder.stat.exists
 
-- name: "Ansible Create directory if not exists"
-  file:
-    path: /opt/{{ COMPONENT }}
-    state: directory
-#  when: my_folder.stat.exists == false
+# - name: "Ansible Create directory if not exists"
+#   file:
+#     path: /opt/{{ COMPONENT }}
+#     state: directory
+#   when: my_folder.stat.exists == false
 
 # Below is another way to check directory existance
 # - name: Create {{ COMPONENT }} directory
