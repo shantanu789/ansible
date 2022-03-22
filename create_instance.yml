@@ -20,9 +20,9 @@
     cpu_options:
         core_count: 1
         threads_per_core: 1
-    state: running ## present / terminated / started / stopped / restarted / rebooted / absent
     launch_template:
       id: "lt-0cca98383ef587a44"
       name: "workstation"
 ##    version: "6"   ## If unspecified, the template default is chosen.
     instance_initiated_shutdown_behavior: stop
+    state: running ## present / terminated / started / stopped / restarted / rebooted / absent

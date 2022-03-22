@@ -2,7 +2,7 @@
 - name: Copy set-hostname script to local
   copy:
     src: set-hostname.sh
-    dest: /tmp
+    dest: /tmp/
 
 - name: Setting up hostname
   shell: bash /tmp/set-hostname.sh {{ COMPONENT }}
