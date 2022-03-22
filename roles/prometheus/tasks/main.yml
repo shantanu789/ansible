@@ -19,25 +19,25 @@
 #     state: directory
 #   when: my_folder.stat.exists == false
 
-# Below is another way to check directory existance
-# - name: Create {{ COMPONENT }} directory
-#   ansible.builtin.file:
-#     path: /opt/{{ COMPONENT }}
-#     state: directory
+    # Below is another way to check directory existance
+    # - name: Create {{ COMPONENT }} directory
+    #   ansible.builtin.file:
+    #     path: /opt/{{ COMPONENT }}
+    #     state: directory
 
-# - name: List contents of directory
-#   ansible.builtin.command: ls /opt/{{ COMPONENT }}
-#   register: contents
+    # - name: List contents of directory
+    #   ansible.builtin.command: ls /opt/{{ COMPONENT }}
+    #   register: contents
 
-# - name: Check contents for emptiness
-#   ansible.builtin.debug:
-#     msg: "Directory is empty"
-#     when: contents.stdout == ""
+    # - name: Check contents for emptiness
+    #   ansible.builtin.debug:
+    #     msg: "Directory is empty"
+    #     when: contents.stdout == ""
 
-# - name: Removing old/default content of {{ COMPONENT }}
-#   ansible.builtin.file:
-#     path: /opt/{{ COMPONENT }}/
-#     state: absent
+    # - name: Removing old/default content of {{ COMPONENT }}
+    #   ansible.builtin.file:
+    #     path: /opt/{{ COMPONENT }}/
+    #     state: absent
 
 - name: Download Prometheus file
   ansible.builtin.unarchive:
