@@ -51,7 +51,7 @@
   ansible.builtin.copy:
     src: prometheus.service
     dest: /etc/systemd/system/prometheus.service
-    remote_src: yes
+
 
 - name: Prometheus service enabled and started
   ansible.builtin.service:
