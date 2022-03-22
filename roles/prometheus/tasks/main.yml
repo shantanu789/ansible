@@ -10,9 +10,7 @@
   when: my_folder.stat.exists
 
 - name: Removing old/default content of {{ COMPONENT }}
-  ansible.builtin.file:
-    path: /opt/{{ COMPONENT }}/*
-    state: absent
+  ansible.builtin.shell: rm -rf /opt/
   when: my_folder.stat.exists
 
 - name: "Ansible Create directory if not exists"
@@ -44,8 +42,11 @@
 - name: Download Prometheus file
   ansible.builtin.unarchive:
     src: "https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz"
-    dest: /opt/prometheus/
+    dest: /opt/prometheus
     remote_src: yes
+
+- name: Rename Archived Prometheus directory
+  ansible.builtin.shell: mv /opt/prometheus/prometheus-2.34.0.linux-amd64 /opt/prometheus/prometheus
 
 - name: Copy Service file
   ansible.builtin.copy:
