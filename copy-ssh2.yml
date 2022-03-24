@@ -13,3 +13,6 @@
       lineinfile:
         path: "/home/centos/.ssh/authorized_keys"
         line: "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
+
+## TO run this playbook - use 
+## ansible-playbook -i rb-inv copy-ssh2.yml --ask-pass
