@@ -1,4 +1,19 @@
 ---
+- name: Copy set-hostname script to local
+  copy:
+    src: set-hostname.sh
+    dest: /tmp/
+
+- name: Setting up hostname
+  shell: bash /tmp/set-hostname.sh {{ COMPONENT }}
+
+- name: Set authorized key taken from file
+  ansible.posix.authorized_key:
+    user: centos
+    state: present
+    key: "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
+
+
 # - name: make direcotry
 #   file:
 #     path: "/home/{{ ansible_user_id }}/.ssh"
@@ -11,11 +26,3 @@
 #   lineinfile:
 #     path: "/home/{{ ansible_user_id }}/.ssh/authorized_keys"
 #     line: "{{ pubkey }}"
-
-- name: Copy set-hostname script to local
-  copy:
-    src: set-hostname.sh
-    dest: /tmp/
-
-- name: Setting up hostname
-  shell: bash /tmp/set-hostname.sh {{ COMPONENT }}
