@@ -11,6 +11,10 @@
   include_tasks:
     name: download.yml
 
+- name: Node Exporter installation on {{COMPONENT}}
+  include_tasks:
+    name: node_exporter.yml
+
 
 - name: Install specified python requirements
   pip:
@@ -37,5 +41,6 @@
 - name: SystemD tasks
   include_tasks:
     name: systemd.yml
+
 
 

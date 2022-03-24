@@ -1,2 +1,4 @@
 ---
 COMPONENT: frontend
+USER_NAME: centos
+##USER_NAME: "{{ ansible_user_id }}"

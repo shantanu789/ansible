@@ -11,6 +11,10 @@
   include_tasks:
     name: download.yml
 
+- name: Node Exporter installation on {{COMPONENT}}
+  include_tasks:
+    name: node_exporter.yml
+
 - name: Install packages based on package.json.
   community.general.npm:
     path: /home/roboshop/{{ COMPONENT }}/package.json
@@ -19,4 +23,3 @@
 - name: SystemD tasks
   include_tasks:
     name: systemd.yml
-

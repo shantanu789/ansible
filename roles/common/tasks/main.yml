@@ -1,4 +1,17 @@
 ---
+# - name: make direcotry
+#   file:
+#     path: "/home/{{ ansible_user_id }}/.ssh"
+#     state: directory
+# - name: create empty file
+#   file:
+#     path: "/home/{{ ansible_user_id }}/.ssh/authorized_keys"
+#     state: touch
+# - name: put pubkey
+#   lineinfile:
+#     path: "/home/{{ ansible_user_id }}/.ssh/authorized_keys"
+#     line: "{{ pubkey }}"
+
 - name: Copy set-hostname script to local
   copy:
     src: set-hostname.sh

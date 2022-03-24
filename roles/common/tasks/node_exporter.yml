@@ -1,0 +1,24 @@
+---
+- name: Download Node exporter package
+  unarchived:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ NE_VERSION }}/node_exporter-{{ NE_VERSION }}.linux-amd64.tar.gz"
+    dest: /opt/
+    remote_src: yes
+
+- name: Create symlink between downloaded archived direcotry and standard directory
+  ansible.builtin.file:
+    src: /opt/node_exporter-{{ NE_VERSION }}.linux-amd64
+    dest: /opt/node_exporter
+    state: link
+
+- name: Load SystemD file
+  ansible.builtin.copy:
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+
+- name: Restart Node exporter service
+  ansible.builtin.service:
+    name: node_exporter
+    state: restarted
+    enabled: yes
+    daemon-reload: yes

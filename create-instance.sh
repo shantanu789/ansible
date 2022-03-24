@@ -33,6 +33,9 @@ echo -e "\e[32m-----------------Launching New Instance-----------------\e[0m\n"
 
 IP=$(aws ec2 run-instances --launch-template "LaunchTemplateId=$LID,Version=$LVER" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$InstanceName}]" "ResourceType=instance,Tags=[{Key=Name,Value=$InstanceName}]" | jq .Instances[].PrivateIpAddress | sed -e 's/"//g')
 
+## Get this IP for copying SSH public keys to Managed nodes - useful in ansible ssh-copy-id on remote-hosts (managed hosts) ~/.ssh/authorized_keys
+echo $IP >> /tmp/IP_Lists 
+
 sed -e "s/INSTANCE_NAME/$InstanceName/" -e "s/INSTANCE_IP/$IP/" record.json >/tmp/record.json
 
 aws route53 change-resource-record-sets --hosted-zone-id Z10081892AGMCVBLNWRMQ --change-batch file:///tmp/record.json | jq
