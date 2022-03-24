@@ -1,0 +1,15 @@
+- name: Copying SSH key to remote hosts
+  hosts: all
+  tasks:
+    - name: make direcotry
+      file:
+        path: "/home/centos/.ssh"
+        state: directory
+    - name: create empty file
+      file:
+        path: "/home/centos/.ssh/authorized_keys"
+        state: touch
+    - name: put pubkey
+      lineinfile:
+        path: "/home/centos/.ssh/authorized_keys"
+        line: "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
