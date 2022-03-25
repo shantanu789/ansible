@@ -8,12 +8,10 @@
     state: present
 
 - name: Include tasks to create user and extract archive
-  include_tasks:
-    name: download.yml
+  include_tasks: download.yml
 
 - name: Node Exporter installation on {{COMPONENT}}
-  include_tasks:
-    name: node_exporter.yml
+  include_tasks: node_exporter.yml
 
 
 - name: Install specified python requirements
@@ -39,8 +37,7 @@
     line: gid = {{ ROBOSHOP_USER.group }}
 
 - name: SystemD tasks
-  include_tasks:
-    name: systemd.yml
+  include_tasks: systemd.yml
 
 
 

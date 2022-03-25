@@ -5,12 +5,10 @@
     state: present
 
 - name: Download task
-  include_tasks:
-    name: download.yml
+  include_tasks: download.yml
 
 - name: Node Exporter installation on {{COMPONENT}}
-  include_tasks:
-    name: node_exporter.yml
+  include_tasks: node_exporter.yml
 
 - name: Making Shipping package and Rename
   shell: mvn clean package; mv target/shipping-1.0.jar shipping.jar
@@ -18,8 +16,7 @@
     chdir: /home/roboshop/{{ COMPONENT }}
 
 - name: SystemD tasks
-  include_tasks:
-    name: systemd.yml
+  include_tasks: systemd.yml
 
 
 # Update Servers IP address in /home/roboshop/shipping/systemd.service

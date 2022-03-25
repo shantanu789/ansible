@@ -8,12 +8,10 @@
     state: present
 
 - name: Download task
-  include_tasks:
-    name: download.yml
+  include_tasks: download.yml
 
 - name: Node Exporter installation on {{COMPONENT}}
-  include_tasks:
-    name: node_exporter.yml
+  include_tasks: node_exporter.yml
 
 - name: Install packages based on package.json.
   community.general.npm:
@@ -21,5 +19,4 @@
   become_user: roboshop
 
 - name: SystemD tasks
-  include_tasks:
-    name: systemd.yml
+  include_tasks: systemd.yml
