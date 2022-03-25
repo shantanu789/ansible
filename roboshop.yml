@@ -6,7 +6,7 @@
   tags: frontend
 
 - name: Roboshop Project Setup - MONOGDB
-  hosts: MONOGDB
+  hosts: MONGODB
   roles: 
   - mongodb
   tags: mongodb

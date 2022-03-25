@@ -1,10 +1,11 @@
 ---
-- name: Set authorized key taken from file
-  ansible.posix.authorized_key:
-    user: centos
-    state: present
-    key: "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
-    
+# YOU HAVE TO RUN copy-ssh2.yml playbook before running final playbook roboshop.yml 
+#- name: Set authorized key taken from file
+#   ansible.posix.authorized_key:
+#     user: centos
+#     state: present
+#     key: "{{ lookup('file', '/home/centos/.ssh/id_rsa.pub') }}"
+
 - name: Copy set-hostname script to local
   copy:
     src: set-hostname.sh
