@@ -12,13 +12,13 @@
 
 - name: Removing old/default content of {{ COMPONENT }}
   ansible.builtin.file:
-    path: /home/roboshop/{{ COMPONENT }}
+    path: "/home/roboshop/{{ COMPONENT }}/"
     state: absent
 
 - name: Copy Extracted content of {{ COMPONENT }} archive 
   copy:
     src: "/tmp/{{COMPONENT}}-main/"
     dest: "/home/roboshop/{{COMPONENT}}/"
-    user: roboshop
+    owner: roboshop
     group: roboshop
     remote_src: yes
