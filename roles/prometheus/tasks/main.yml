@@ -22,7 +22,7 @@
   file:
     path: /opt/
     state: directory
-  when: my_folder.exists == false
+  when: my_folder.stat.exists == false
 
     # Below is another way to check directory existance
     # - name: Create {{ COMPONENT }} directory
