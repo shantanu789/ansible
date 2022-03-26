@@ -6,23 +6,23 @@
 
 - name: "echo if directory already existed"
   debug:
-    msg: "{{ COMPONENT }} directory is already existed"
-  when: my_folder.exists
+    msg: "{{my_folder}}" #"{{ COMPONENT }} directory is already existed"
+  # when: my_folder.exists
 
-- name: Removing old/default content of {{ COMPONENT }}
-  ansible.builtin.shell: rm -rf /opt/*
-  when: my_folder.exists
+# - name: Removing old/default content of {{ COMPONENT }}
+#   ansible.builtin.shell: rm -rf /opt/*
+#   when: my_folder.exists
 
-- name: Ansible check {{ COMPONENT }} directory
-  stat:
-    path: /opt/
-  register: my_folder
+# - name: Ansible check {{ COMPONENT }} directory
+#   stat:
+#     path: /opt/
+#   register: my_folder
 
-- name: "Ansible Create directory if not exists"
-  file:
-    path: /opt/
-    state: directory
-  when: my_folder.exists == false
+# - name: "Ansible Create directory if not exists"
+#   file:
+#     path: /opt/
+#     state: directory
+#   when: my_folder.exists == false
 
     # Below is another way to check directory existance
     # - name: Create {{ COMPONENT }} directory
@@ -44,31 +44,31 @@
     #     path: /opt/{{ COMPONENT }}/
     #     state: absent
 
-- name: Download Prometheus file
-  ansible.builtin.unarchive:
-    src: "https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz"
-    dest: /opt/
-    remote_src: yes
+# - name: Download Prometheus file
+#   ansible.builtin.unarchive:
+#     src: "https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz"
+#     dest: /opt/
+#     remote_src: yes
 
-- name: Rename Archived Prometheus directory
-  ansible.builtin.shell: mv /opt/prometheus-2.34.0.linux-amd64 /opt/prometheus
+# - name: Rename Archived Prometheus directory
+#   ansible.builtin.shell: mv /opt/prometheus-2.34.0.linux-amd64 /opt/prometheus
 
-# - name: Removing old/default directory
-#   ansible.builtin.shell: rm -rf /opt/prometheus-2.34.0.linux-amd64
+# # - name: Removing old/default directory
+# #   ansible.builtin.shell: rm -rf /opt/prometheus-2.34.0.linux-amd64
 
-- name: Copy Service file
-  ansible.builtin.copy:
-    src: prometheus.service
-    dest: /etc/systemd/system/prometheus.service
+# - name: Copy Service file
+#   ansible.builtin.copy:
+#     src: prometheus.service
+#     dest: /etc/systemd/system/prometheus.service
 
-- name: Update Prometheus config file
-  ansible.builtin.template: 
-    src: prometheus-config.yml
-    dest: /opt/prometheus/prometheus.yml
+# - name: Update Prometheus config file
+#   ansible.builtin.template: 
+#     src: prometheus-config.yml
+#     dest: /opt/prometheus/prometheus.yml
 
 
-- name: Prometheus service enabled and started
-  ansible.builtin.service:
-    name: prometheus
-    state: restarted
-    enabled: yes
+# - name: Prometheus service enabled and started
+#   ansible.builtin.service:
+#     name: prometheus
+#     state: restarted
+#     enabled: yes
