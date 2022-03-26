@@ -15,7 +15,7 @@
 
 - name: Install packages based on package.json.
   community.general.npm:
-    path: /home/roboshop/{{ COMPONENT }}/package.json
+    path: /home/roboshop/{{ COMPONENT }}
   become_user: roboshop
 
 - name: SystemD tasks
