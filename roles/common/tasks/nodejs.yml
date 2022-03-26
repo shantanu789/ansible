@@ -5,6 +5,7 @@
       - nodejs
       - make
       - gcc-c++
+      - npm
     state: present
 
 - name: Download task
