@@ -16,7 +16,7 @@
     state: absent
 
 - name: Copy Extracted content of {{ COMPONENT }} archive 
-  ansible.builtin.copy:
+  copy:
     src: "/tmp/{{COMPONENT}}-main/"
     dest: "/home/roboshop/{{COMPONENT}}/"
     user: roboshop
