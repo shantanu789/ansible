@@ -5,7 +5,7 @@
       - nodejs
       - make
       - gcc-c++
-      - npm
+      - npm   ##TO AVOID a ERROR that saying - Failed to find required executable \"npm\" in paths: /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/.local/bin:/root/bin
     state: present
 
 - name: Download task

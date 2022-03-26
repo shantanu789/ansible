@@ -56,6 +56,11 @@
     src: prometheus.service
     dest: /etc/systemd/system/prometheus.service
 
+- name: Update Prometheus config file
+  ansible.builtin.template: 
+    src: prometheus-config.yml
+    dest: /opt/prometheus/prometheus.yml
+
 
 - name: Prometheus service enabled and started
   ansible.builtin.service:
