@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     src: mysql.repo
     dest: /etc/yum.repos.d/mysql.repo
-    remote_src: yes
+
 
 - name: Removing mariadb
   ansible.builtin.yum:
